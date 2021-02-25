@@ -32,6 +32,8 @@ dependencies:
   firebase_core: ^0.7.0
   cloud_firestore: ^0.16.0+1
   firebase_auth: ^0.20.1
+  expansion_card: ^0.1.0
+  font_awesome_flutter: ^8.11.0
 
 
 dev_dependencies:
