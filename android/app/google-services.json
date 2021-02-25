@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "732306287539",
+    "project_id": "iscacentral",
+    "storage_bucket": "iscacentral.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732306287539:android:6e03df0582991a4616b9c6",
+        "android_client_info": {
+          "package_name": "bodrulamin.iscacentral"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "732306287539-ml0c93lrgvq1u8aoatn01hmfpchmo9d1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA_hDvg9hQK9DjzqE7264eor26vW-aah7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "732306287539-ml0c93lrgvq1u8aoatn01hmfpchmo9d1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
