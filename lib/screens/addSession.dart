@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iscacentral/model/persondetails.dart';
@@ -30,11 +28,8 @@ class _SessionBodyState extends State<SessionBody> {
       child: SizedBox(
         width: 500,
         child: Column(
-
           children: [
-
             Expanded(
-
               child: ListView.builder(
                   itemBuilder: personCard, itemCount: persons.length),
             ),
@@ -43,6 +38,9 @@ class _SessionBodyState extends State<SessionBody> {
                   showDialog(context: context, builder: dialogViewForInput);
                 },
                 child: Text("Add Person")),
+            SizedBox(
+              height: 20.0,
+            )
           ],
         ),
       ),
@@ -52,13 +50,12 @@ class _SessionBodyState extends State<SessionBody> {
   Widget personCard(BuildContext context, int index) {
     return Card(
       child: ExpansionTile(
-
         leading: FaIcon(FontAwesomeIcons.solidUser),
         collapsedBackgroundColor: Colors.lime.shade50,
         expandedAlignment: Alignment.bottomLeft,
         expandedCrossAxisAlignment: CrossAxisAlignment.start,
         childrenPadding: EdgeInsets.only(left: 20.0),
-        subtitle:   Text(persons[index].designation),
+        subtitle: Text(persons[index].designation),
         tilePadding: EdgeInsets.only(left: 25.0),
         title: Text(
           persons[index].name,
@@ -67,19 +64,17 @@ class _SessionBodyState extends State<SessionBody> {
         children: [
           ListTile(
               isThreeLine: false,
-
-              leading: Icon(Icons.phone),
-              onTap: ()=>
-                  launch("tel:${persons[index].phone}"),
+              leading: FaIcon(FontAwesomeIcons.phone),
+              onTap: () => launch("tel:${persons[index].phone}"),
               title: Text(persons[index].phone)),
           ListTile(
-
-              leading: Icon(Icons.email),
+              leading: FaIcon(FontAwesomeIcons.envelope),
               onTap: () => launch("mailto:${persons[index].email}"),
-              title: Text(persons[index].email, )
-          ),
+              title: Text(
+                persons[index].email,
+              )),
           ListTile(
-            leading: FaIcon(FontAwesomeIcons.facebook),
+            leading: FaIcon(FontAwesomeIcons.facebookF),
             onTap: () => launch(persons[index].fbLink),
             title: Text(persons[index].fbLink),
           ),
@@ -88,14 +83,7 @@ class _SessionBodyState extends State<SessionBody> {
     );
   }
 
-
   Widget dialogViewForInput(BuildContext context) {
-    String _name;
-    String _desig;
-    String _phone;
-    String _email;
-    String _fblink;
-
     Person newPerson =
         Person("name", "designation", "phone", "email", "fbLink");
 
@@ -117,15 +105,43 @@ class _SessionBodyState extends State<SessionBody> {
             },
             child: Text("Add"))
       ],
-      content: Column(
-        children: [
-          Text("Enter Person Details"),
-          TextFormField(onChanged: (value) => newPerson.name=value),
-          TextFormField(onChanged: (value) => newPerson.designation=value),
-          TextFormField(onChanged: (value) => newPerson.phone=value),
-          TextFormField(onChanged: (value) => newPerson.email=value),
-          TextFormField(onChanged: (value) => newPerson.fbLink=value ),
-        ],
+      content: SingleChildScrollView(
+        child: Column(
+          children: [
+            Text("Enter Person Details"),
+            TextFormField(
+                decoration: const InputDecoration(
+                  icon: FaIcon(FontAwesomeIcons.user),
+                  labelText: 'Name *',
+                ),
+                onChanged: (value) => newPerson.name = value),
+            TextFormField(
+                decoration: const InputDecoration(
+                  icon: FaIcon(FontAwesomeIcons.briefcase),
+                  labelText: 'Designation',
+                ),
+                onChanged: (value) => newPerson.designation = value),
+            TextFormField(
+                decoration: const InputDecoration(
+                  icon: FaIcon(FontAwesomeIcons.phone),
+                  labelText: 'Phone',
+                ),
+
+                onChanged: (value) => newPerson.phone = value),
+            TextFormField(
+                decoration: const InputDecoration(
+                  icon: FaIcon(FontAwesomeIcons.envelope),
+                  labelText: 'Email',
+                ),
+                onChanged: (value) => newPerson.email = value),
+            TextFormField(
+                decoration: const InputDecoration(
+                  icon: FaIcon(FontAwesomeIcons.facebookF),
+                  labelText: 'Facebook Link',
+                ),
+                onChanged: (value) => newPerson.fbLink = value),
+          ],
+        ),
       ),
     );
   }
