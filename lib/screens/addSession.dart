@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iscacentral/model/persondetails.dart';
+import 'package:iscacentral/model/session.dart';
+import 'package:iscacentral/widgets/personCard.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class AddSession extends StatelessWidget {
@@ -20,72 +23,97 @@ class SessionBody extends StatefulWidget {
 }
 
 class _SessionBodyState extends State<SessionBody> {
-  List<Person> persons = [];
+  List<Person> amelaList = [];
+  List<Person> shuraList = [];
+  final yearTec = TextEditingController();
+  String currentYear = "sdf";
+
+  @override
+  void initState() {
+    print("staten loaded");
+
+    super.initState();
+    CollectionReference _collectionRef =
+        FirebaseFirestore.instance.collection('users');
+
+    Future<void> getData() async {
+      // Get docs from collection reference
+      QuerySnapshot querySnapshot = await _collectionRef.get();
+
+      // Get data from docs and convert map to List
+      final allData = querySnapshot.docs.map((doc) => doc.data()).toList();
+
+      print(allData);
+    }
+
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: SizedBox(
-        width: 500,
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView.builder(
-                  itemBuilder: personCard, itemCount: persons.length),
-            ),
-            ElevatedButton(
-                onPressed: () {
-                  showDialog(context: context, builder: dialogViewForInput);
-                },
-                child: Text("Add Person")),
-            SizedBox(
-              height: 20.0,
-            )
-          ],
-        ),
-      ),
-    );
-  }
+    print("widet loaded");
 
-  Widget personCard(BuildContext context, int index) {
-    return Card(
-      child: ExpansionTile(
-        leading: FaIcon(FontAwesomeIcons.solidUser),
-        collapsedBackgroundColor: Colors.lime.shade50,
-        expandedAlignment: Alignment.bottomLeft,
-        expandedCrossAxisAlignment: CrossAxisAlignment.start,
-        childrenPadding: EdgeInsets.only(left: 20.0),
-        subtitle: Text(persons[index].designation),
-        tilePadding: EdgeInsets.only(left: 25.0),
-        title: Text(
-          persons[index].name,
-          style: TextStyle(color: Colors.blueAccent, fontSize: 25.0),
-        ),
+    return SizedBox(
+      width: 500,
+      child: Column(
         children: [
-          ListTile(
-              isThreeLine: false,
-              leading: FaIcon(FontAwesomeIcons.phone),
-              onTap: () => launch("tel:${persons[index].phone}"),
-              title: Text(persons[index].phone)),
-          ListTile(
-              leading: FaIcon(FontAwesomeIcons.envelope),
-              onTap: () => launch("mailto:${persons[index].email}"),
-              title: Text(
-                persons[index].email,
-              )),
-          ListTile(
-            leading: FaIcon(FontAwesomeIcons.facebookF),
-            onTap: () => launch(persons[index].fbLink),
-            title: Text(persons[index].fbLink),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: TextFormField(
+              decoration: const InputDecoration(
+                icon: FaIcon(FontAwesomeIcons.calendar),
+                labelText: 'Session Year',
+              ),
+              controller: yearTec..text = currentYear,
+            ),
           ),
+
+          Expanded(
+            child: ListView.builder(
+                itemBuilder: amelaCardBuilder, itemCount: amelaList.length),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                  onPressed: () {
+                    showDialog(context: context, builder: dialogViewForInput);
+                  },
+                  child: Text("Add Person")),
+              SizedBox(
+                width: 20.0,
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    Session session = Session(shuraList: shuraList,
+                        year: yearTec.text.toString(), amelaList: amelaList) ;
+
+                    CollectionReference iscacentralapp =
+                        FirebaseFirestore.instance.collection('iscacentralapp');
+
+                    // Call the user's CollectionReference to add a new user
+                    return iscacentralapp
+                        .doc(session.year)
+                        .set(session.toMap())
+                        .then((value) => print("User Added"))
+                        .catchError(
+                            (error) => print("Failed to add user: $error"));
+                  },
+                  child: Text("Save")),
+            ],
+          ),
+          SizedBox(
+            height: 20.0,
+          )
         ],
       ),
     );
   }
 
+
+
   Widget dialogViewForInput(BuildContext context) {
-    Person newPerson =
-        Person("name", "designation", "phone", "email", "fbLink");
+    Person newPerson = Person();
 
     return AlertDialog(
       actions: [
@@ -98,7 +126,7 @@ class _SessionBodyState extends State<SessionBody> {
         TextButton(
             onPressed: () {
               setState(() {
-                persons.add(newPerson);
+                amelaList.add(newPerson);
               });
 
               Navigator.pop(context);
@@ -126,7 +154,6 @@ class _SessionBodyState extends State<SessionBody> {
                   icon: FaIcon(FontAwesomeIcons.phone),
                   labelText: 'Phone',
                 ),
-
                 onChanged: (value) => newPerson.phone = value),
             TextFormField(
                 decoration: const InputDecoration(
@@ -144,5 +171,9 @@ class _SessionBodyState extends State<SessionBody> {
         ),
       ),
     );
+  }
+
+  Widget amelaCardBuilder(BuildContext context, int index) {
+    return personCard(context, amelaList, index);
   }
 }
