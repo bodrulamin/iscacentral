@@ -9,6 +9,7 @@ class Session {
 
   Session({this.year, this.amelaList,this.shuraList});
 
+
   Map<String, dynamic> toMap() {
     return {
       "year": year,
