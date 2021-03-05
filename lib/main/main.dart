@@ -9,6 +9,10 @@ import 'package:iscacentral/screens/ex.dart';
 import 'package:iscacentral/screens/loginPage.dart';
 import 'package:iscacentral/screens/shura.dart';
 
+hh
+ldg
+sdgsg
+
 void main() async {
 
   bool USE_FIRESTORE_EMULATOR = false;
