@@ -24,12 +24,12 @@ class Session {
 
   Session.fromJson(Map<String, dynamic> json)
   {
-    var y = json["year"];
+    year = json["year"];
     var al = json["amelaList"] as List<dynamic>;
     var sl = json["shuraList"] as List<dynamic>;
 
     List<Person> amlist = al.map((person) => Person.fromJson(person)).toList();
-    List<Person> shlist = al.map((person) => Person.fromJson(person)).toList();
+    List<Person> shlist = sl.map((person) => Person.fromJson(person)).toList();
 
 
   amelaList = amlist;

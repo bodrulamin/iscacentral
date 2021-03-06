@@ -11,7 +11,7 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
 
-            RaisedButton(
+            ElevatedButton(
                 child: Text("Amela"),
                 onPressed: (){
               Navigator.pushNamedAndRemoveUntil(context, "amela", (route) => false);

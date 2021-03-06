@@ -35,27 +35,31 @@ class GetUserName extends StatelessWidget {
       future: iscacentralapp.doc(documentId).get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text("Something went wrong");
+        if (snapshot.hasData) {
+          if (snapshot.hasError) {
+            return Text("Something went wrong");
+          }
+
+          if (snapshot.connectionState == ConnectionState.done) {
+            Map<String, dynamic> data = snapshot.data.data();
+            Session session = Session.fromJson(data);
+
+            amelaList = session.amelaList;
+            shuraList = session.shuraList;
+            // Person person = new Person();
+            // person.name = "bodrul amin";
+            // person.designation = "idb";
+            // person.phone = "01725717136";
+            // amelaList.add(person);
+
+            return ListView.builder(
+                itemBuilder: amelaCardBuilder, itemCount: amelaList.length);
+          }
+
+          return Text("loading");
+        } else {
+          return Text("Document not exists");
         }
-
-        if (snapshot.connectionState == ConnectionState.done) {
-          Map<String, dynamic> data = snapshot.data.data();
-          Session session = Session.fromJson(data);
-
-          amelaList = session.amelaList;
-          shuraList = session.shuraList;
-          // Person person = new Person();
-          // person.name = "bodrul amin";
-          // person.designation = "idb";
-          // person.phone = "01725717136";
-          // amelaList.add(person);
-
-          return ListView.builder(
-              itemBuilder: amelaCardBuilder, itemCount: amelaList.length);
-        }
-
-        return Text("loading");
       },
     );
   }
