@@ -95,7 +95,7 @@ class _SessionBodyState extends State<SessionBody> {
                     // Call the user's CollectionReference to add a new user
                     return iscacentralapp
                         .doc(session.year)
-                        .set(session.toMap())
+                        .set(session.toJson())
                         .then((value) => print("User Added"))
                         .catchError(
                             (error) => print("Failed to add user: $error"));
@@ -112,7 +112,7 @@ class _SessionBodyState extends State<SessionBody> {
   }
 
   Widget dialogViewForInput(BuildContext context) {
-    Person newPerson = Person();
+    Person newPerson = Person.namedParams();
 
     return AlertDialog(
       actions: [

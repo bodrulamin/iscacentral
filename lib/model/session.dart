@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
+import 'dart:convert';
 import 'package:iscacentral/model/persondetails.dart';
 
 class Session {
@@ -9,18 +10,30 @@ class Session {
 
   Session({this.year, this.amelaList, this.shuraList});
 
-  Map<String, dynamic> toMap() {
+  Map<String, dynamic> toJson() {
     return {
       "year": year,
       "amelaList": amelaList.map((item) {
-        return item.toMap();
+        return item.toJson();
       }).toList(),
       "shuraList": shuraList.map((item) {
-        return item.toMap();
+        return item.toJson();
       }).toList(),
     };
   }
 
- 
+  Session.fromJson(Map<String, dynamic> json)
+  {
+    var y = json["year"];
+    var al = json["amelaList"] as List<dynamic>;
+    var sl = json["shuraList"] as List<dynamic>;
 
+    List<Person> amlist = al.map((person) => Person.fromJson(person)).toList();
+    List<Person> shlist = al.map((person) => Person.fromJson(person)).toList();
+
+
+  amelaList = amlist;
+  shuraList = shlist;
+
+  }
 }

@@ -41,12 +41,10 @@ class GetUserName extends StatelessWidget {
 
         if (snapshot.connectionState == ConnectionState.done) {
           Map<String, dynamic> data = snapshot.data.data();
-          Session session = Session.fromMap(data);
+          Session session = Session.fromJson(data);
 
           amelaList = session.amelaList;
-          print(amelaList);
           shuraList = session.shuraList;
-
           // Person person = new Person();
           // person.name = "bodrul amin";
           // person.designation = "idb";
