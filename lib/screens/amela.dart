@@ -15,6 +15,16 @@ class Amela extends StatelessWidget {
         title: Text("Amela"),
       ),
       body: GetUserName("2021"),
+      drawer: Drawer(
+        child: SafeArea(
+          child: ListTile(
+            title: Text("Add Session") ,
+            onTap: (){
+              Navigator.pushNamed(context, "addSession");
+            },
+          ),
+        ),
+      ) ,
     );
   }
 }
@@ -35,7 +45,7 @@ class GetUserName extends StatelessWidget {
       future: iscacentralapp.doc(documentId).get(),
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
-        if (snapshot.hasData) {
+        if (snapshot.data.exists) {
           if (snapshot.hasError) {
             return Text("Something went wrong");
           }

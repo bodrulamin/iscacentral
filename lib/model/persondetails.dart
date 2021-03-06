@@ -1,11 +1,18 @@
 class Person {
-  int sl = 0;
+  int sl;
 
-  String name = "";
-  String designation = "";
-  String phone = "";
-  String email = "";
-  String fbLink = "";
+  String name;
+  String designation;
+  String phone;
+  String email;
+  String fbLink;
+  // int sl = 0;
+  //
+  // String name = "";
+  // String designation = "";
+  // String phone = "";
+  // String email = "";
+  // String fbLink = "";
 
   Person(this.sl, this.name, this.designation, this.phone, this.email,
       this.fbLink);
