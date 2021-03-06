@@ -7,8 +7,7 @@ class Session {
   List<Person> amelaList = [];
   List<Person> shuraList = [];
 
-  Session({this.year, this.amelaList,this.shuraList});
-
+  Session({this.year, this.amelaList, this.shuraList});
 
   Map<String, dynamic> toMap() {
     return {
@@ -19,20 +18,9 @@ class Session {
       "shuraList": shuraList.map((item) {
         return item.toMap();
       }).toList(),
-
     };
-
   }
 
-  factory Session.fromJson(Map<String, dynamic> json) {
-    return Session(
-      year: json['year'],
-      amelaList: json['amelaList'],
-      shuraList: json['shuraList'],
-
-    );
-  }
-
-
+ 
 
 }

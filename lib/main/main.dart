@@ -9,9 +9,7 @@ import 'package:iscacentral/screens/ex.dart';
 import 'package:iscacentral/screens/loginPage.dart';
 import 'package:iscacentral/screens/shura.dart';
 
-
 void main() async {
-
   bool USE_FIRESTORE_EMULATOR = false;
 
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,38 +24,31 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   final List<String> list = [];
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
-
     return MaterialApp(
       title: 'ISCA Central',
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
 
-      initialRoute: "addSession",
+      initialRoute: "amela",
       routes: {
-        "login" : (context) => LoginPage(),
-        "amela" : (context) => Amela(),
-        "shura" : (context) => Shura(),
-        "ex" : (context) => Ex(),
-        "addSession" : (context) => AddSession(),
-        "addContact" : (context) => AddContact(),
+        "login": (context) => LoginPage(),
+        "amela": (context) => Amela(),
+        "shura": (context) => Shura(),
+        "ex": (context) => Ex(),
+        "addSession": (context) => AddSession(),
+        "addContact": (context) => AddContact(),
       },
 
       //home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
-
-
 }
-
-
 
 class AddUserData extends StatelessWidget {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
@@ -68,17 +59,12 @@ class AddUserData extends StatelessWidget {
     'age': 54 // 42
   };
 
-
-
   Future<void> addUser() {
-
-
-
-    return users.add(UserData)
+    return users
+        .add(UserData)
         .then((value) => print("User Added"))
         .catchError((error) => print("Failed to add user: $error"));
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -86,13 +72,10 @@ class AddUserData extends StatelessWidget {
       appBar: AppBar(
         title: Text("Hello title"),
       ),
-
-      body:
-      RaisedButton(
+      body: RaisedButton(
         onPressed: addUser,
         child: Text("Add Data"),
       ),
     );
   }
 }
-
