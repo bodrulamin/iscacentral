@@ -26,7 +26,6 @@ class _SessionBodyState extends State<SessionBody> {
   List<Person> amelaList = [];
   List<Person> shuraList = [];
   final yearTec = TextEditingController();
-  String currentYear = "sdf";
 
   @override
   void initState() {
@@ -51,6 +50,7 @@ class _SessionBodyState extends State<SessionBody> {
 
   @override
   Widget build(BuildContext context) {
+    String currentYear = "";
     print("widet loaded");
 
     return SizedBox(
@@ -64,10 +64,9 @@ class _SessionBodyState extends State<SessionBody> {
                 icon: FaIcon(FontAwesomeIcons.calendar),
                 labelText: 'Session Year',
               ),
-              controller: yearTec..text = currentYear,
+              controller: yearTec,
             ),
           ),
-
           Expanded(
             child: ListView.builder(
                 itemBuilder: amelaCardBuilder, itemCount: amelaList.length),
@@ -85,8 +84,10 @@ class _SessionBodyState extends State<SessionBody> {
               ),
               ElevatedButton(
                   onPressed: () {
-                    Session session = Session(shuraList: shuraList,
-                        year: yearTec.text.toString(), amelaList: amelaList) ;
+                    Session session = Session(
+                        shuraList: shuraList,
+                        year: yearTec.text.toString(),
+                        amelaList: amelaList);
 
                     CollectionReference iscacentralapp =
                         FirebaseFirestore.instance.collection('iscacentralapp');
@@ -109,8 +110,6 @@ class _SessionBodyState extends State<SessionBody> {
       ),
     );
   }
-
-
 
   Widget dialogViewForInput(BuildContext context) {
     Person newPerson = Person();
