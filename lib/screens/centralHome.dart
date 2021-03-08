@@ -7,12 +7,12 @@ import 'package:iscacentral/model/session.dart';
 import 'package:iscacentral/widgets/personCard.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class Amela extends StatelessWidget {
+class CentralHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Amela"),
+        title: Text("Central Home"),
       ),
       body: GetUserNameByLastYear("2021"),
       drawer: Drawer(
@@ -62,8 +62,24 @@ class GetUserName extends StatelessWidget {
             // person.phone = "01725717136";
             // amelaList.add(person);
 
-            return ListView.builder(
-                itemBuilder: amelaCardBuilder, itemCount: amelaList.length);
+
+            return GridView.builder(gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                crossAxisSpacing: 4.0,
+                mainAxisSpacing: 4.0
+            ), itemBuilder: amelaCardBuilder);
+
+
+
+            //
+            // return ListView.builder(
+            //     itemBuilder: amelaCardBuilder, itemCount: amelaList.length);
+            //
+            //
+            //
+
+
+
           }
 
           return Text("loading");

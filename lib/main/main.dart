@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:iscacentral/screens/addContact.dart';
 import 'package:iscacentral/screens/addSession.dart';
 import 'package:iscacentral/screens/amela.dart';
+import 'package:iscacentral/screens/centralHome.dart';
 import 'package:iscacentral/screens/ex.dart';
 import 'package:iscacentral/screens/loginPage.dart';
 import 'package:iscacentral/screens/shura.dart';
@@ -35,9 +36,11 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepOrange,
       ),
 
-      initialRoute: "amela",
+      initialRoute: "home",
       routes: {
         "login": (context) => LoginPage(),
+        "home": (context) => CentralHome(),
+
         "amela": (context) => Amela(),
         "shura": (context) => Shura(),
         "ex": (context) => Ex(),
